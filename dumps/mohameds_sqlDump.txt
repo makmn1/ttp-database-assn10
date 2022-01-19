@@ -1,0 +1,258 @@
+--
+-- PostgreSQL database dump
+--
+
+-- Dumped from database version 14.1
+-- Dumped by pg_dump version 14.1
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
+
+--
+-- Name: e_commerce_practice; Type: SCHEMA; Schema: -; Owner: postgres
+--
+
+CREATE SCHEMA e_commerce_practice;
+
+
+ALTER SCHEMA e_commerce_practice OWNER TO postgres;
+
+--
+-- Name: adminpack; Type: EXTENSION; Schema: -; Owner: -
+--
+
+CREATE EXTENSION IF NOT EXISTS adminpack WITH SCHEMA pg_catalog;
+
+
+--
+-- Name: EXTENSION adminpack; Type: COMMENT; Schema: -; Owner: 
+--
+
+COMMENT ON EXTENSION adminpack IS 'administrative functions for PostgreSQL';
+
+
+SET default_tablespace = '';
+
+SET default_table_access_method = heap;
+
+--
+-- Name: product_info; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.product_info (
+    "productID" integer NOT NULL,
+    "productName" character varying(50) NOT NULL,
+    brand character varying(25) NOT NULL,
+    model character varying(25),
+    sku character varying(8) NOT NULL,
+    "saleModifier" double precision DEFAULT 1 NOT NULL,
+    "retailPrice" double precision NOT NULL,
+    "inStock" boolean
+);
+
+
+ALTER TABLE public.product_info OWNER TO postgres;
+
+--
+-- Name: user_account; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.user_account (
+    "userID" integer NOT NULL,
+    username character varying(50) NOT NULL,
+    gender character(5),
+    email character varying(250) NOT NULL,
+    "isMember" boolean DEFAULT false
+);
+
+
+ALTER TABLE public.user_account OWNER TO postgres;
+
+--
+-- Name: user_cart; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.user_cart (
+    "cartItemID" integer NOT NULL,
+    "cartID" integer,
+    "productID" integer,
+    "dateAdded" date NOT NULL,
+    "dateRemoved" date NOT NULL,
+    purchased boolean NOT NULL
+);
+
+
+ALTER TABLE public.user_cart OWNER TO postgres;
+
+--
+-- Name: user_cart_history; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.user_cart_history (
+    "cartID" integer NOT NULL,
+    quantity integer DEFAULT 1 NOT NULL,
+    "promoCodeUsed" character varying(16),
+    "checkoutTime" date NOT NULL,
+    shipping double precision NOT NULL,
+    "userID" integer
+);
+
+
+ALTER TABLE public.user_cart_history OWNER TO postgres;
+
+--
+-- Data for Name: product_info; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.product_info ("productID", "productName", brand, model, sku, "saleModifier", "retailPrice", "inStock") FROM stdin;
+1	PlayStation_Portable	SONY	SCPH-1000	KRH48572	0.75	299	f
+2	PlayStation	SONY	SCPH-1001	KRH48573	1.25	399	f
+3	PlayStation 2	SONY	SCPH-1002	KRH48574	1	499	f
+4	PlayStation 3	SONY	SCPH-1003	KRH48575	0.6	599	t
+5	PlayStation 4	SONY	SCPH-1004	KRH48576	0.75	699	t
+6	PlayStation 5	SONY	SCPH-1005	KRH48577	1	799	f
+\.
+
+
+--
+-- Data for Name: user_account; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.user_account ("userID", username, gender, email, "isMember") FROM stdin;
+1	momo	M    	momothejojo@gmail.com	t
+4	koko	F    	kokothejojo@gmail.com	t
+2	soso	F    	sosothejojo@gmail.com	f
+3	nono	M    	nonothejojo@gmail.com	t
+5	coco	M    	cocothejojo@gmail.com	f
+6	zozo	F    	zozothejojo@gmail.com	t
+\.
+
+
+--
+-- Data for Name: user_cart; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.user_cart ("cartItemID", "cartID", "productID", "dateAdded", "dateRemoved", purchased) FROM stdin;
+1	1	1	2021-12-02	2021-12-14	t
+2	2	3	2021-12-14	2021-12-14	t
+4	2	5	2021-12-14	2021-12-14	t
+5	3	3	2021-12-16	2021-12-16	t
+3	2	4	2021-12-14	2021-12-14	f
+6	3	1	2021-12-16	2021-12-16	t
+7	4	2	2021-12-20	2021-12-21	t
+8	5	5	2021-12-25	2021-12-25	t
+9	6	3	2021-12-30	2022-01-01	t
+10	6	2	2022-01-01	2022-01-01	t
+11	7	4	2022-01-02	2022-01-12	t
+12	7	2	2022-01-02	2022-01-02	f
+13	7	6	2022-01-02	2022-01-12	t
+14	7	2	2022-01-05	2022-01-12	f
+15	7	4	2022-01-05	2022-01-12	t
+16	7	5	2022-01-12	2022-01-12	t
+\.
+
+
+--
+-- Data for Name: user_cart_history; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.user_cart_history ("cartID", quantity, "promoCodeUsed", "checkoutTime", shipping, "userID") FROM stdin;
+1	1	\N	2021-12-14	9.99	1
+3	2	\N	2021-12-16	19.99	3
+4	1	\N	2021-12-21	9.99	4
+5	1	SANTA	2021-12-25	9.99	5
+6	2	2022	2022-01-01	19.99	6
+2	2	FREESHIPPING	2021-12-14	0	2
+7	4	\N	2022-01-12	39.99	3
+\.
+
+
+--
+-- Name: product_info product_info_pk; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.product_info
+    ADD CONSTRAINT product_info_pk PRIMARY KEY ("productID");
+
+
+--
+-- Name: user_cart_history user_cart_history_pk; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.user_cart_history
+    ADD CONSTRAINT user_cart_history_pk PRIMARY KEY ("cartID");
+
+
+--
+-- Name: user_cart user_cart_pk; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.user_cart
+    ADD CONSTRAINT user_cart_pk PRIMARY KEY ("cartItemID");
+
+
+--
+-- Name: user_account user_pk; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.user_account
+    ADD CONSTRAINT user_pk PRIMARY KEY ("userID");
+
+
+--
+-- Name: product_info_sku_uindex; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE UNIQUE INDEX product_info_sku_uindex ON public.product_info USING btree (sku);
+
+
+--
+-- Name: user_email_uindex; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE UNIQUE INDEX user_email_uindex ON public.user_account USING btree (email);
+
+
+--
+-- Name: user_username_uindex; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE UNIQUE INDEX user_username_uindex ON public.user_account USING btree (username);
+
+
+--
+-- Name: user_cart cartID_fk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.user_cart
+    ADD CONSTRAINT "cartID_fk" FOREIGN KEY ("cartID") REFERENCES public.user_cart_history("cartID") ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: user_cart productID_fk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.user_cart
+    ADD CONSTRAINT "productID_fk" FOREIGN KEY ("productID") REFERENCES public.user_cart_history("cartID") ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: user_cart_history userID_fk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.user_cart_history
+    ADD CONSTRAINT "userID_fk" FOREIGN KEY ("userID") REFERENCES public.user_account("userID") ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- PostgreSQL database dump complete
+--
+
