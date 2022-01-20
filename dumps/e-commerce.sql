@@ -1,3 +1,4 @@
+-- Author: Lubna Khalid.
 -- postgres=# CREATE DATABASE Assignment10
 -- postgres-# ;
 -- CREATE DATABASE
@@ -115,3 +116,23 @@ VALUES(4,'scarf','Karen Scott','','',4,12.99, true);
 --          4 | scarf       | Karen Scott |       |          |            4 |          13 | t
 -- (4 rows)
 
+-- INNER JOIN-- 
+SELECT * FROM users inner join carthistory on users."userid" = carthistory."userid";
+--joins three tables 
+SELECT * FROM users 
+    inner join CartHistory on users."userid" = CartHistory."userid";
+    inner join Cart on users."userid" = Cart."cartid";
+
+--join four tables
+SELECT * FROM users 
+    inner join CartHistory on users."userid" = CartHistory."userid"
+    inner join Cart on users."userid" = Cart."cartid";
+    inner join ProductInfo on Cart."productid" = ProductInfo."productid";
+
+--  userid | username | gender |      email       | ismember | cartid | userid | quantity | promocodeused | checkouttime | shipping 
+-- --------+----------+--------+------------------+----------+--------+--------+----------+---------------+--------------+----------
+--       2 | Andrew   | M      | andrew@gmail.com | f        |      1 |      2 |        4 | FREEFIVE      | 2022-01-12   |        6
+--       1 | Steph    | F      | steph@gmail.com  | t        |      2 |      1 |       54 | FREESHIP      | 2020-12-12   |        9
+--       3 | Aarfa    | F      | aarfa@gmail.com  | t        |      3 |      3 |        5 | 20OFF         | 2021-10-31   |        5
+--       4 | Bob      | M      | bob@gmail.com    | t        |      4 |      4 |        1 | LOVEISLOVE    | 2011-10-31   |        5
+-- (4 rows)
