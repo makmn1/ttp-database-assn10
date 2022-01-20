@@ -24,51 +24,13 @@ CREATE TABLE Users (
 );
 
 INSERT INTO
-    Users (
-        userId,
-        userName,
-        LastName,
-        FirstName,
-        email,
-        telephone,
-        homeAddress,
-        isMember
-    )
+    Users (userId, userName, LastName, FirstName, email, telephone, homeAddress, isMember)
 VALUES
-    (
-        1,
-        'AseelABdo23',
-        'Alshohatee',
-        'Aseel',
-        'AseelAlshohatee@gmail.com',
-        '0123456789',
-        'ave',
-        true
-    );
-
+    (1,'AseelABdo23','Alshohatee','Aseel','AseelAlshohatee@gmail.com','0123456789','ave', true);
 INSERT INTO
-    Users (
-        userId,
-        userName,
-        LastName,
-        FirstName,
-        email,
-        telephone,
-        homeAddress,
-        isMember
-    )
+    Users (userId, userName, LastName, FirstName, email, telephone, homeAddress, isMember)
 VALUES
-    (
-        2,
-        'AliAbdo3',
-        'Alshohatee',
-        'Ali',
-        'AliAlshohatee@gmail.com',
-        '0123456789',
-        'ave',
-        true
-    );
-
+    (2,'AliAbdo3','Alshohatee','Ali','AliAlshohatee@gmail.com','0123456789','ave',true);
 -- step3 --> CartHistory table
 -- DROP TABLE CartHistory;
 CREATE TABLE CartHistory (
@@ -81,29 +43,14 @@ CREATE TABLE CartHistory (
     FOREIGN KEY(userID) REFERENCES Users(userID)
 );
 
-INSERT INTO
-    CartHistory (
-        cartID,
-        userID,
-        quantity,
-        promoCodeUsed,
-        checkoutTime,
-        shipping
-    )
+INSERT INTO CartHistory ( cartID, userID, quantity, promoCodeUsed, checkoutTime, shipping )
 VALUES
-    (1, 1, 20, 'FREEFIVE', '1/1/2022', 4.99);
-
+    (1,1,20,'FREEFIVE','1/1/2022', 4.99);
 INSERT INTO
-    CartHistory (
-        cartID,
-        userID,
-        quantity,
-        promoCodeUsed,
-        checkoutTime,
-        shipping
-    )
+   CartHistory ( cartID, userID, quantity, promoCodeUsed, checkoutTime, shipping )
 VALUES
     (2, 2, 15, 'dfnksa', '1/1/2022', 5.99);
+
 
 -- step4 --> product table
 -- DROP TABLE product;
@@ -122,67 +69,10 @@ CREATE TABLE product (
     inStock boolean
 );
 
-INSERT INTO
-    product (
-        productID,
-        productName,
-        Price,
-        prodDescription,
-        brand,
-        model,
-        SKU,
-        saleModifier,
-        productWeight,
-        Width,
-        Height,
-        inStock
-    )
-VALUES
-(
-        1,
-        'shirt',
-        5.99,
-        'shirt men',
-        'Tommy',
-        '2021 ',
-        '33403123',
-        1,
-        5,
-        2,
-        4,
-        true
-    );
-
-INSERT INTO
-    product (
-        productID,
-        productName,
-        Price,
-        prodDescription,
-        brand,
-        model,
-        SKU,
-        saleModifier,
-        productWeight,
-        Width,
-        Height,
-        inStock
-    )
-VALUES
-(
-        2,
-        'pant',
-        7.99,
-        'pant men',
-        'Tommy',
-        '2021 ',
-        '3243242',
-        1,
-        1,
-        30,
-        30,
-        true
-    );
+INSERT INTO product (productID ,productName ,Price ,prodDescription ,brand ,model ,SKU ,saleModifier  ,productWeight ,Width ,Height ,inStock )
+VALUES(1,'shirt', 5.99,'shirt men','Tommy' , '2021 ', '33403123',1 , 5, 2, 4, true);
+INSERT INTO product (productID ,productName ,Price ,prodDescription ,brand ,model ,SKU ,saleModifier  ,productWeight ,Width ,Height ,inStock )
+VALUES(2,'pant', 7.99,'pant men','Tommy' , '2021 ', '3243242',1 , 1, 30, 30, true);
 
 -- step5 --> Cart table
 -- DROP TABLE Cart;
@@ -204,10 +94,12 @@ INSERT INTO
         cartID,
         dateAdded,
         dateRemoved,
-        purchased
+        purchased 
     )
 VALUES
     (1, 1, 1, '1 / 12 / 2022', '1 / 12 / 2022', true);
+
+
 
 INSERT INTO
     Cart(
@@ -216,7 +108,7 @@ INSERT INTO
         cartID,
         dateAdded,
         dateRemoved,
-        purchased
+purchased
     )
 VALUES
-    (2, 2, 2, '1 / 12 / 2022', '1 / 12 / 2022', true);
+  (2, 2, 2, '1 / 12 / 2022', '1 / 12 / 2022', true);
