@@ -1,0 +1,16 @@
+-- Joining two tables: The following joins the "user_account" table with the "user_cart_history" table.
+-- This shows the association of users to the carts they have/had.
+select * from user_account inner join user_cart_history on user_account."userID" = user_cart_history."userID";
+
+-- Joining three tables: The following joins the "user_account" table with the "user_cart_history" and "user_cart" tables.
+-- This shows the association of users to the carts they have/had and details on those carts
+select * from user_account
+    inner join user_cart_history on user_account."userID" = user_cart_history."userID"
+    inner join user_cart on user_account."userID" = user_cart."cartID";
+
+-- Joining four tables: The following joins the "user_account" table with the "user_cart_history", "user_cart", and "product_info" tables.
+-- This shows the association of users to the carts they have/had, details on those carts, and details of the items they purchased.
+select * from user_account
+    inner join user_cart_history on user_account."userID" = user_cart_history."userID"
+    inner join user_cart on user_account."userID" = user_cart."cartID"
+    inner join product_info on user_cart."productID" = product_info."productID";
